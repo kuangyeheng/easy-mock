@@ -45,9 +45,15 @@ module.exports = class UserController {
   static async register (ctx) {
     const name = ctx.checkBody('name').notEmpty().len(4, 20).value
     const password = ctx.checkBody('password').notEmpty().len(6, 20).value
-
+    const registerToken = ctx.checkBody('registerToken').notEmpty().len(6, 20).value
+    
     if (ctx.errors) {
       ctx.body = ctx.util.refail(null, 10001, ctx.errors)
+      return
+    }
+    
+    if (!(registerToken === config.get('registerToken'))) {
+      ctx.body = ctx.util.refail('注册码输入错误')
       return
     }
 

@@ -264,24 +264,32 @@ export default {
             title: this.$t('confirm.title'),
             content: this.$t('p.login.confirm.register.content'),
             onOk: () => {
-              this.register()
+              if (window) {
+                let registerToken = window.prompt('请输入注册码，注册码请咨询管理员。', '')
+                if (registerToken.trim() !== '') {
+                  this.register(registerToken)
+                } else {
+                  this.$Message.error('注册码不能为空！！')
+                }
+              }
             }
           })
         }
       })
     },
-    register () {
+    register (registerToken) {
       api.u.register({
         data: {
           name: this.userName,
-          password: this.password
+          password: this.password,
+          registerToken
         }
       }).then((res) => {
         if (res.data.success) {
           this.$Message.success(this.$t('p.login.confirm.register.success'))
           this.login()
         }
-      })
+      }).catch(() => {})
     }
   }
 }
