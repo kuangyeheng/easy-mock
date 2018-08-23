@@ -1,5 +1,5 @@
 {
-  "port": 80,
+  "port": 8080,
   "host": "0.0.0.0",
   "pageSize": 30,
   "proxy": false,
