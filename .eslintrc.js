@@ -9,5 +9,8 @@ module.exports = {
   },
   "plugins": [
     "html"
-  ]
+  ],
+  rules: {
+    "no-debugger": 1
+  }
 };
